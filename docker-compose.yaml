@@ -3,7 +3,7 @@ services:
   resume:
     build:
       context: .
-    image: "zate75/resume:latest"
+    image: ${IMAGE}
     container_name: resume
     restart: always
     environment:

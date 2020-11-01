@@ -1,4 +1,4 @@
-module github.com/zate/resume
+module github.com/zate/goLightHTTP
 
 go 1.15
 
