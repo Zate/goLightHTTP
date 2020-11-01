@@ -1,0 +1,22 @@
+version: '3'
+services:
+  resume:
+    build:
+      context: .
+    image: "zate75/resume:latest"
+    container_name: resume
+    restart: always
+    environment:
+      - SITE=${SITE}
+      - DOMAIN=${DOMAIN}
+    env_file:
+      - .env
+    volumes:
+      - ${SITE}:/site:cached
+    networks:
+      - internal
+
+
+networks:
+  internal:
+    external: false

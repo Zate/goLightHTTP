@@ -1,0 +1,36 @@
+version: '3'
+services:
+  resume:
+    image: "zate75/resume:latest"
+    container_name: resume
+    restart: on-failure
+    entrypoint: ["/app"]
+    environment:
+      - SITE=${SITe}
+      - DOMAIN=&{DOMAIN}
+    volumes:
+      - ${SITE}:/site:cached
+    networks:
+      - internal
+      - traefik-public
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      labels:
+        - traefik.backend=resume
+        - traefik.frontend.rule=Host:${DOMAIN}
+        - traefik.docker.network=traefik-public
+        - traefik.enable=true
+        - traefik.port=3000
+        - traefik.tags=traefik-public
+        - traefik.redirectorservice.frontend.entryPoints=http
+        - traefik.redirectorservice.frontend.redirect.entryPoint=https
+        # Traefik service that listens to HTTPS
+        - traefik.webservice.frontend.entryPoints=https
+
+networks:
+  traefik-public:
+    external: true
+  internal:
+    external: false

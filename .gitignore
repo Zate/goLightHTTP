@@ -1,0 +1,7 @@
+env
+files
+.env
+resume*
+site
+main.*
+!main.go
